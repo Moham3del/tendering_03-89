@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+
+{% load static%}
+
+
+{% block content %}
+
+<div class="layout-px-spacing">
+  <div class="middle-content container-xxl p-0">
+
+      <div class="row layout-top-spacing">
+
+          <a href="{% url 'tender_details' %}">
+              الرجوع الى جميع المنافسات
+              <div class="ripple-container"></div>
+          </a>
+          <div class="s007">
+            <form method="GET">
+                <table class="table table-striped mb-0">
+                    <thead style="background-color: #002d72;">
+                        <tr>
+    
+                            
+                            <th scope="col" style="text-align: center;">رقم المنافسة</th>
+                            <th scope="col" style="text-align: center;">اسم المنافسة</th>
+                            <th scope="col" style="text-align: center;">المالك</th>
+                            <th scope="col" style="text-align: center;">النشاط الأساسي</th>
+    
+                        </tr>
+                    </thead>
+                    
+                    <tbody>
+                        <tr>
+                            
+                            <td style="text-align: center;">{{myFilter.form.no}}</td>
+                            <td style="text-align: center;">{{myFilter.form.title}}</td>
+                            <td style="text-align: center;">{{myFilter.form.management}}</td>
+                            <td style="text-align: center;">{{myFilter.form.owner}}</td>
+                        </tr>
+                    </tbody>
+    
+                    
+                    
+                    
+                </table>
+                <br>
+                <input type="submit" name="txt" class="mt-1 btn btn-add-new-contract" value="بحث" >
+            </form>
+          </div>
+          <br>
+          <h1>
+
+              <div class="tabs">
+                  <div class="tabby-tab">
+                      <input type="radio" id="tab-1" name="tabby-tabs" checked>
+                      <label for="tab-1">تقرير المناقصات الجارية ( {{detail_count}} )</label>
+                      <div class="tabby-content">
+                          <table class="table table-striped mb-0">
+                              <thead style="background-color: #002d72;">
+                                  <tr>
+                                      <th scope="col">الاسم</th>
+                                      <th scope="col">تاريخ التقديم</th>
+                                      <th scope="col">المالك</th>
+                                      <th scope="col">القسم</th>
+                                  </tr>
+                              </thead>
+                              {% for x in myFilter.qs %}
+                              <tbody>
+                                  <tr>
+                                      <td>{{x.no}} ـ {{x.title}}</td>
+                                      <td>  {{x.submit_date}} ـ ـ ـ ({{x.Days_till|cut:'days'|cut:'day'|add:'يوم'}})</td>
+                                      <td>{{x.owner}}</td>
+                                      <td>{{x.management}}</td>
+                                      <td></td>
+
+                                      <td><a href="{% url 'tender_details_details' x.id %}">التفاصيل</a></a></td>
+                                      {% if user_tender_permission.update_tender_detail == 'Yes' %}
+                                      <td><a href="{% url 'update_tender' x.id %}">تعديل</a></td>
+                                      {% endif %}
+                                  </tr>
+
+                              </tbody>
+                              {% endfor %}
+                          </table>
+                      </div>
+                  </div>
+          </h1>
+      </div>
+
+  </div>
+</div>
+
+{% endblock content %}

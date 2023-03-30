@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% load static%}
+
+
+{% block content %}
+
+<div class="layout-px-spacing">
+    <div class="middle-content container-xxl p-0">
+
+        <div class="row layout-top-spacing">
+            <div class="col-xl-9 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing">
+
+                
+                <h1>{{user_profile.user}}</h1>
+                <h1>{{user_profile.sector_name}}</h1>
+
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+{% endblock content %}
+

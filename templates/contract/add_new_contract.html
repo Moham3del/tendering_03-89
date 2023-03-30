@@ -1,0 +1,529 @@
+{% extends 'base.html' %} {% load static%} {% block content %} 
+
+<form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    <div class="row layout-top-spacing-add-new-contract 5">
+
+
+
+        <div class="card">
+            <div class="card-icon mb-4">
+
+                <h1 style="font-weight: bold; color: #c19b2e; text-align: center;" class="card-title mb-0"><svg
+                        xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="feather feather-clipboard">
+                        <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2">
+                        </path>
+                        <rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect>
+                    </svg> طلب إصدار عقد مقاول باطن / مورد</h1>
+
+            </div>
+        </div>
+
+
+        <div class="row">
+
+            <div id="form_sizing" class="col-lg-12">
+                <div class="seperator-header-add-new-contract">
+                    <br>
+                    <h4 class="">مقدم الطلب</h4>
+                </div>
+            </div>
+
+
+            <div class="col-lg-12 col-12  layout-spacing">
+                <div class="statbox widget box box-shadow">
+                    <div class="widget-header">
+
+                    </div>
+                    <div class="widget-content widget-content-area">
+
+                        <div class="form-group-add-new-contract row  mb-4">
+                            <label for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm"
+                            style="width: 40%; border-style: dashed; border-width: 1px; border-radius: 5px;"
+                            >جهة اصدار
+                                الطلب</label>
+                            <div class="col-sm-10-add-new-contract">
+                                <input type="text" class="form-control form-control-sm" id="colFormLabelSm"
+                                style="font-size: 20px; color:rgb(110, 111, 114);" disabled="true"
+                                value="{{user_profile.sector_name}}" {{form.sector}}
+                            </div>
+                        </div>
+
+                        <div class="form-group-add-new-contract row  mb-4">
+                            <label for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm"
+                            style="width: 40%; border-style: dashed; border-width: 1px; border-radius: 5px;"
+                            >اسم
+                                المشروع</label>
+                            <div class="col-sm-10-add-new-contract">
+                                <input type="text" class="form-control form-control-sm" id="colFormLabelSm"
+                                style="font-size: 20px; color:rgb(110, 111, 114);" disabled="true"
+                                value="{{user_profile.project_name}}" {{form.project}}
+                            </div>
+                        </div>
+
+                        <div class="form-group-add-new-contract row  mb-4">
+                            <label for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm"
+                            style="width: 40%; border-style: dashed; border-width: 1px; border-radius: 5px;"
+                            >رقم
+                                المشروع</label>
+                            <div class="col-sm-10-add-new-contract">
+                                <input type="text" class="form-control form-control-sm" id="colFormLabelSm"
+                                style="font-size: 20px; color:rgb(110, 111, 114);" disabled="true"
+                                value="{{user_profile.project_number}}" {{form.creator}}
+                            </div>
+                        </div>
+
+
+
+                    </div>
+                </div>
+            </div>
+
+            <div id="form_sizing" class="col-lg-12">
+                <div class="seperator-header-add-new-contract">
+                    <h4 class="">العقد</h4>
+                </div>
+            </div>
+
+
+            <div class="col-lg-12 col-12  layout-spacing">
+                <div class="statbox widget box box-shadow">
+                    <div class="widget-header">
+
+                    </div>
+                    <div class="widget-content widget-content-area">
+
+                        <div class="form-group-add-new-contract row  mb-4">
+                            <label for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm"
+                            style="width: 40%; border-style: dashed; border-width: 1px; border-radius: 5px;"
+                            >نوع الأعمال</label>
+                            <div class="col-sm-10-add-new-contract">
+                                <input type="text" class="form-control form-control-sm" id="colFormLabelSm"
+                                    placeholder="نوع الأعمال" {{form.works_type}}
+                            </div>
+                        </div>
+
+                        <div class="form-group-add-new-contract row  mb-4">
+                            <label for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm"
+                            style="width: 40%; border-style: dashed; border-width: 1px; border-radius: 5px;"
+                            >نوع
+                                العقد</label>
+                            <div class="col-sm-10-add-new-contract">
+                                <label for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm" 
+                                style="width: 100%; border-style:solid; border-width: 1px; border-radius: 5px; border-color: darkgray; padding-right: 2%;">
+                                {{form.contract_type}}
+                            </div>
+                        </div>
+
+                        <div class="form-group-add-new-contract row  mb-4">
+                            <label for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm"
+                            style="width: 40%; border-style: dashed; border-width: 1px; border-radius: 5px;"
+                            >قيمة العقد (بالريال السعودي)</label>
+                            <div class="col-sm-10-add-new-contract">
+                                <input type="text" class="form-control form-control-sm" id="colFormLabelSm"
+                                placeholder="قيمة العقد (بالريال السعودي)" {{form.contract_value}} 
+                            </div>
+                        </div>
+
+                        <div class="form-group-add-new-contract row  mb-4">
+                            <label for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm"
+                            style="width: 40%; border-style: dashed; border-width: 1px; border-radius: 5px;"
+                            >مدة تنفيذ العقد (باليوم)</label>
+                            <div class="col-sm-10-add-new-contract">
+                                <input type="text" class="form-control form-control-sm" id="colFormLabelSm"
+                                    placeholder="مدة تنفيذ العقد (باليوم)" {{form.contract_duration}}
+                            </div>
+                        </div>
+
+                        <div class="form-group-add-new-contract row  mb-4">
+                            <label for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm"
+                            style="width: 40%; border-style: dashed; border-width: 1px; border-radius: 5px;"
+                            >قسم تقدير التكاليف
+                                </label>
+                            <div class="col-sm-10-add-new-contract">
+                                <label for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm" 
+                                style="width: 100%; border-style:solid; border-width: 1px; border-radius: 5px; border-color: darkgray; padding-right: 2%;">
+                                {{form.cost_istimation}}
+                            </div>
+                        </div>
+
+                        <div class="form-group-add-new-contract row  mb-4">
+                            <label for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm"
+                            style="width: 40%; border-style: dashed; border-width: 1px; border-radius: 5px;"
+                            >حالة تحليل السعر
+                                </label>
+                            <div class="col-sm-10-add-new-contract">
+                                <label for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm" 
+                                style="width: 100%; border-style:solid; border-width: 1px; border-radius: 5px; border-color: darkgray; padding-right: 2%;">
+                                {{form.price_analysis_status}}
+                            </div>
+                        </div>
+
+                        
+                        <div class="form-group-add-new-contract row  mb-4">
+                            <label for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm"
+                            style="width: 40%; border-style: dashed; border-width: 1px; border-radius: 5px;"
+                            >تحليل السعر
+                                
+
+                            </label>
+                            <div class="col-sm-10-add-new-contract">
+                                <input type="file" class="form-control form-control-sm" id="colFormLabelSm"
+                                    placeholder="شهادة الزكاة والدخل للمقاول من الباطن (سارية المفعول)" {{form.price_analysis}}
+                            </div>
+                        </div>
+
+
+
+                    </div>
+                </div>
+            </div>
+
+            <div id="form_sizing" class="col-lg-12">
+                <div class="seperator-header-add-new-contract">
+                    <h4 class="">المقاول من الباطن / المورد (الطرف الثاني)</h4>
+                </div>
+            </div>
+
+
+            <div class="col-lg-12 col-12  layout-spacing">
+                <div class="statbox widget box box-shadow">
+                    <div class="widget-header">
+
+                    </div>
+                    <div class="widget-content widget-content-area">
+
+                        <div class="form-group-add-new-contract row  mb-4">
+                            <label for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm"
+                            style="width: 40%; border-style: dashed; border-width: 1px; border-radius: 5px;"
+                            >الطرف الثاني</label>
+                            <div class="col-sm-10-add-new-contract">
+                                <input type="text" class="form-control form-control-sm" id="colFormLabelSm"
+                                    placeholder="اسم الطرف الثاني" {{form.secondParty_name}}
+                            </div>
+                        </div>
+
+                        <div class="form-group-add-new-contract row  mb-4">
+                            <label for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm"
+                            style="width: 40%; border-style: dashed; border-width: 1px; border-radius: 5px;"
+                            >رقم
+                                الأيبان</label>
+                            <div class="col-sm-10-add-new-contract">
+                                <input type="text" class="form-control form-control-sm" id="colFormLabelSm"
+                                    placeholder="رقم الأيبان" {{form.iban}}
+                            </div>
+                        </div>
+
+                        <div class="form-group-add-new-contract row  mb-4">
+                            <label for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm"
+                            style="width: 40%; border-style: dashed; border-width: 1px; border-radius: 5px;"
+                            >الرقم
+                                الضريبي</label>
+                            <div class="col-sm-10-add-new-contract">
+                                <input type="text" class="form-control form-control-sm" id="colFormLabelSm"
+                                    placeholder="الرقم الضريبي" {{form.tax_number}}
+                            </div>
+                        </div>
+
+
+                        <div class="form-group-add-new-contract row  mb-4">
+                            <label for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm"
+                            style="width: 40%; border-style: dashed; border-width: 1px; border-radius: 5px;"
+                            >شهادة ضريبة القيمة المضافة / شهادة الزكاة
+                                والدخل
+
+                            </label>
+                            <div class="col-sm-10-add-new-contract">
+                                <input type="file" class="form-control form-control-sm" id="colFormLabelSm"
+                                    placeholder="شهادة الزكاة والدخل للمقاول من الباطن (سارية المفعول)" {{form.zakat_Income_certificate}}
+                            </div>
+                        </div>
+
+
+                        <div class="form-group-add-new-contract row  mb-4">
+                            <label for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm"
+                            style="width: 40%; border-style: dashed; border-width: 1px; border-radius: 5px;"
+                            >تفويض التوقيع
+
+                            </label>
+                            <div class="col-sm-10-add-new-contract">
+                                <input type="file" class="form-control form-control-sm" id="colFormLabelSm"
+                                    placeholder="تفويض التوقيع" {{form.signature_authorization}}
+                            </div>
+                        </div>
+
+                        <div class="form-group-add-new-contract row  mb-4">
+                            <label for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm"
+                            style="width: 40%; border-style: dashed; border-width: 1px; border-radius: 5px;"
+                            >اسم المفوض
+
+                            </label>
+                            <div class="col-sm-10-add-new-contract">
+                                <input type="text" class="form-control form-control-sm" id="colFormLabelSm"
+                                    placeholder="اسم المفوض" {{form.delegated_nam}}
+                            </div>
+                        </div>
+
+                        <div class="form-group-add-new-contract row  mb-4">
+                            <label for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm"
+                            style="width: 40%; border-style: dashed; border-width: 1px; border-radius: 5px;"
+                            >المسمى الوظيفي للمفوض
+
+                            </label>
+                            <div class="col-sm-10-add-new-contract">
+                                <input type="text" class="form-control form-control-sm" id="colFormLabelSm"
+                                    placeholder="المسمى الوظيفي للمفوض" {{form.delegated_title}}
+                            </div>
+                        </div>
+
+                        <div class="form-group-add-new-contract row  mb-4">
+                            <label for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm"
+                            style="width: 40%; border-style: dashed; border-width: 1px; border-radius: 5px;"
+                            >رقم الهوية/الإقامة للمفوض
+
+                            </label>
+                            <div class="col-sm-10-add-new-contract">
+                                <input type="text" class="form-control form-control-sm" id="colFormLabelSm"
+                                    placeholder="الهوية / الإقامة للمفوض" {{form.gov_id_no}}
+                            </div>
+                        </div>
+
+                        <div class="form-group-add-new-contract row  mb-4">
+                            <label for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm"
+                            style="width: 40%; border-style: dashed; border-width: 1px; border-radius: 5px;"
+                            >رقم
+                                التواصل</label>
+                            <div class="col-sm-10-add-new-contract">
+                                <input type="text" class="form-control form-control-sm" id="colFormLabelSm"
+                                    placeholder="رقم التواصل" {{form.phone_no}}
+                            </div>
+                        </div>
+
+                        <div class="form-group-add-new-contract row  mb-4">
+                            <label for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm"
+                            style="width: 40%; border-style: dashed; border-width: 1px; border-radius: 5px;"
+                            >عنوان البريد
+                                الإلكتروني</label>
+                            <div class="col-sm-10-add-new-contract">
+                                <input type="email" class="form-control form-control-sm" id="colFormLabelSm"
+                                    placeholder="عنوان البريد الإلكتروني" {{form.email}}
+                            </div>
+                        </div>
+
+                        <div class="form-group-add-new-contract row  mb-4">
+                            <label for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm"
+                            style="width: 40%; border-style: dashed; border-width: 1px; border-radius: 5px;"
+                            >الرمز
+                                البريدي</label>
+                            <div class="col-sm-10-add-new-contract">
+                                <input type="text" class="form-control form-control-sm" id="colFormLabelSm"
+                                    placeholder="الرمز البريدي" {{form.postal_code}}
+                            </div>
+                        </div>
+
+                        <div class="form-group-add-new-contract row  mb-4">
+                            <label for="colFormLabelSm"
+                                class="col-sm-2 col-form-label col-form-label-sm"
+                                style="width: 40%; border-style: dashed; border-width: 1px; border-radius: 5px;"
+                                >العنوان</label>
+                            <div class="col-sm-10-add-new-contract">
+                                <input type="text" class="form-control form-control-sm" id="colFormLabelSm"
+                                    placeholder="العنوان" {{form.address}}
+                            </div>
+                        </div>
+
+
+                        <div class="form-group-add-new-contract row  mb-4">
+                            <label for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm"
+                            style="width: 40%; border-style: dashed; border-width: 1px; border-radius: 5px;"
+                            >ممثل الطرف الثاني في الموقع</label>
+                            <div class="col-sm-10-add-new-contract">
+                                <input type="text" class="form-control form-control-sm" id="colFormLabelSm"
+                                    placeholder="ممثل الطرف الثاني" {{form.second_party_representative}}
+                            </div>
+                        </div>
+
+                        <div class="form-group-add-new-contract row  mb-4">
+                            <label for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm"
+                            style="width: 40%; border-style: dashed; border-width: 1px; border-radius: 5px;"
+                            >السجل التجاري
+                                (ساري المفعول)
+
+                            </label>
+                            <div class="col-sm-10-add-new-contract">
+                                <input type="file" class="form-control form-control-sm" id="colFormLabelSm"
+                                    placeholder="السجل التجاري(ساري المفعول)" {{form.commercial_register}}
+                            </div>
+                        </div>
+
+                        <div class="form-group-add-new-contract row  mb-4">
+                            <label for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm"
+                            style="width: 40%; border-style: dashed; border-width: 1px; border-radius: 5px;"
+                            >تاريخ انتهاء السجل التجاري
+                            </label>
+
+                            <div class="col-sm-10-add-new-contract">
+                                <input type="date" class="form-control form-control-sm" id="colFormLabelSm"
+                                    placeholder="تاريخ الانتهاء" {{form.commercial_register_date}}
+                            </div>
+                        </div>
+
+
+                        <div class="form-group-add-new-contract row  mb-4">
+                            <label for="colFormLabelSm"
+                                class="col-sm-2 col-form-label col-form-label-sm"
+                                style="width: 40%; border-style: dashed; border-width: 1px; border-radius: 5px;"
+                                >مؤسسة/شركة</label>
+                            <div class="col-sm-10-add-new-contract">
+                                <label for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm" 
+                                style="width: 100%; border-style:solid; border-width: 1px; border-radius: 5px; border-color: darkgray; padding-right: 2%;">
+                                {{form.establishment_company}}
+                            </div>
+                        </div>
+
+                        <div class="form-group-add-new-contract row  mb-4">
+                            <label for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm"
+                            style="width: 40%; border-style: dashed; border-width: 1px; border-radius: 5px;"
+                            >عقد التأسيس(إلزامي في حالة الشركات)
+
+                            </label>
+                            <div class="col-sm-10-add-new-contract">
+                                <input type="file" class="form-control form-control-sm" id="colFormLabelSm"
+                                    placeholder="عقد التأسيس" {{form.association_contract}}
+                            </div>
+                        </div>
+
+                        <div class="form-group-add-new-contract row  mb-4">
+                            <label for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm"
+                            style="width: 40%; border-style: dashed; border-width: 1px; border-radius: 5px;"
+                            >الملف التعريفي
+                                وسابقة الأعمال
+
+                            </label>
+                            <div class="col-sm-10-add-new-contract">
+                                <input type="file" class="form-control form-control-sm" id="colFormLabelSm"
+                                    placeholder="الملف التعريفي وسابقة الأعمال" {{form.sub_contractor_profile}}
+                            </div>
+                        </div>
+                        
+                        <div class="form-group-add-new-contract row  mb-4">
+                            <label for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm"
+                            style="width: 40%; border-style: dashed; border-width: 1px; border-radius: 5px;"
+                            >جدول
+                                كميات العقد الأصلي للمشروع
+
+                            </label>
+                            <div class="col-sm-10-add-new-contract">
+                                <input type="file" class="form-control form-control-sm" id="colFormLabelSm"
+                                    placeholder="جدول كميات العقد الأصلي للمشروع" {{form.project_original_contract_quantities_table_copy}}
+                            </div>
+                        </div>
+
+
+
+                        <div class="form-group-add-new-contract row  mb-4">
+                            <label for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm"
+                            style="width: 40%; border-style: dashed; border-width: 1px; border-radius: 5px;"
+                            >جدول كميات
+                                العقد(للطرف الثاني)<br>ملف اكسيل (filename.xlsx)
+
+                            </label>
+                            <div class="col-sm-10-add-new-contract">
+                                <input type="file" class="form-control form-control-sm" id="colFormLabelSm"
+                                    placeholder="جدول كميات العقد" {{form.contract_quantities_table}}
+                            </div>
+                        </div>
+
+
+
+
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div id="form_sizing" class="col-lg-12">
+            <div class="seperator-header-add-new-contract">
+                <h4 class="">الشروط الخاصة</h4>
+            </div>
+        </div>
+
+    <div id="basic" class="row layout-spacing layout-top-spacing" style="margin-top: 0;">
+        <div class="col-lg-12">
+            <div class="statbox widget box box-shadow">
+                <div class="widget-header">
+
+                </div>
+                <div class="widget-content widget-content-area">
+
+                    <div id="editor-container" class="ql-container ql-snow-add-new-contract">
+                        <textarea style="height: 250px;width: 100%;" placeholder="
+مثال:
+*- يتم ذكر أية شروط خاصة تم الإتفاق عليها مع الطرف الثاني
+مثل: 
+                        
+-   العقد توريد وتنفيذ لكن التوريد من الطرف الأول بالخصم على الطرف الثاني
+-  العقد تنفيذ فقط وتوريد المواد يتم من خلال الطرف الأول إلى مستودع المشروع أو على رأس العمل
+-  الأعمال المساحية مسئولية الطرف الأول 
+-  العقد Back to back أي أنكل نطاق العمل مسئولية الطرف الثاني بما يشمل المخططات ، ........ ، .......... . 
+
+ملحوظة هامة : 
+
+-  في حال عدم وجود شروط خاصة يجب كتابة ( لا يوجد ) لاستكمال الطلب 
+                        " {{form.special_conditions}}</textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+        <div id="form_sizing" class="col-lg-12">
+            <div class="seperator-header-add-new-contract">
+                <h4 class="">شروط الدفع</h4>
+            </div>
+        </div>
+
+
+    <div id="basic" class="row layout-spacing layout-top-spacing" style="margin-top: 0;">
+        <div class="col-lg-12">
+            <div class="statbox widget box box-shadow">
+                <div class="widget-header">
+
+                </div>
+                <div class="widget-content widget-content-area">
+
+                    <div id="editor-container" class="ql-container ql-snow-add-new-contract">
+                        <textarea style="height: 350px;width: 100%;" placeholder="
+مثال:
+
+1- يقوم المقاول من الباطن بتقديم مستخلصات جارية  عن الأعمال المنفذة والمعتمدة من ٳستشارى المشروع والمالك بالموقع وذلك بالأسعار الواردة بمقايسة قوائم الكميات  وتكون طريقة السداد طبقاً للآتي: 
+
+2- (90%) من قيمة فاتورة تقدم العمل وفق بيان نسب الصرف المعتمد، وبعد قبول استلام الأعمال تفصيلياً من استشارى المشروع والمالك شريطة التزام المقاول من الباطن بالجدول الزمنى للمشروع.
+
+3- يتم حجز نسبة (10%) من قيمة كل فاتورة يقدمها المقاول من الباطن للأعمال المنفذة و المعتمدة من مهندس المقاول الرئيسي، وبعد قبول استلام الأعمال تفصيلياً من استشارى المشروع والمالك، على أن تصرف هذه النسبة بعد التسليم الإبتدائي لهذه الأعمال خالية من العيوب و إحضار شهادة اخلاء طرف من قبل الجهات ذات العلاقة
+
+ملحوظة هامة:
+
+- في حال كانت شروط الدفع وفقاً للمذكور أعلاه يكتفى بكتابة (وفقا لسياسات الشركة)
+
+في حال طلب الطرف الثاني صرف دفعة مقدمة بقيمة تتجاوز (............) يجب التنبيه بأنها تصرف مقابل :
+                        - إما ضمان بنكي ساري طوال مدة العقد
+                        - أو سند لأمر موثق غرفة تجارية على منصة نافذ
+" {{form.payment_terms}}</textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        <input type="submit" name="txt" class="mt-4 btn btn-add-new-contract" value="طلب اصدار عقد جديد">
+
+</form>
+
+{% endblock content %}

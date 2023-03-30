@@ -1,0 +1,41 @@
+.container-grid{
+    display: grid;
+    grid-auto-rows: minmax(auto,auto);
+    grid-template-areas: 
+
+    "header header header header header header"
+    "content content content content content side"
+    "content content content content content side"
+    "content content content content content side"
+    "content content content content content side"
+    "content content content content content side"
+    "content content content content content side"
+    "content content content content content side"
+    "content content content content content side"
+    "content content content content content side"
+    "content content content content content side"
+    "content content content content content side"
+    "content content content content content side"
+    "footer footer footer footer footer footer"
+    ;
+    grid-gap: 10px;
+}
+
+.box{
+    background-color: rgb(62, 97, 238);
+    text-align: center;
+}
+
+
+.header-grid{
+    grid-area: header;
+}
+.side-grid{
+    grid-area: side;
+}
+.content-grid{
+    grid-area: content;
+}
+.footer-grid{
+    grid-area: footer;
+}

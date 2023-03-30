@@ -1,0 +1,71 @@
+{% extends 'base.html' %} {% load static%} {% block content %}
+<div class="layout-px-spacing">
+
+    <div class="card" style="margin-top: 5%;">
+        <div class="card-icon mb-4">
+            <br>
+            
+
+
+            <div style="text-align: center;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                stroke-linejoin="round" class="feather feather-inbox">
+                <polyline points="22 12 16 12 14 15 10 15 8 12 2 12"></polyline>
+                <path
+                    d="M5.45 5.11L2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z">
+                </path>
+            </svg> <span><br><a href="{% url 'contract_notification' %}">العودة للاشعارات{{notifications.id}}</a></span>
+            </div>
+        
+
+
+            <div class="col-lg-12 col-12  layout-spacing">
+                <div class="statbox widget box box-shadow">
+                    <div class="widget-header">
+
+                    </div>
+                    <div class="widget-content widget-content-area">
+
+                        <table class="table table-striped mb-0">
+                            <thead style="background-color: #002d72;">
+                                <tr>
+                                    <th scope="col">رقم الطلب</th>
+                                    <th scope="col">التاريخ</th>
+                                    <th scope="col">من</th>
+                                    <th scope="col">إلى</th>
+                                    <th scope="col">الملاحظة</th>
+                                    <th scope="col">مرفق</th> 
+                                    
+                                </tr>
+                            </thead>
+                            
+                            <tbody>
+                                <tr>
+                                    <td>{{notification.request_no}}</td>
+                                    <td>{{notification.action_date}}</td>
+                                    <td>{{notification.action_creator}}</td>
+                                    <td>{{notification.to}}</td>
+                                    <td>{{notification.action_notes}}</td>
+                                    <td><span>
+                                        <a href="{{notification.action_file.url}}">مرفق</a>
+                                       </span></td>
+                                       
+
+
+                            </tbody>
+                            
+                            
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+</div>
+
+{% endblock content %}

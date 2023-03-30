@@ -1,0 +1,123 @@
+{% extends 'base.html' %} {% load static%} {% block content %}
+<div class="layout-px-spacing">
+
+    <div class="card" style="margin-top: 5%;">
+        <div class="card-icon mb-4">
+            <br>
+            
+
+
+            <div id="form_sizing" class="col-lg-12">
+                <div class="seperator-header-add-new-contract" style="text-align: center;">
+                    <h4 class="">اشعارات </h4>
+                </div>
+            </div>
+
+
+            <div class="col-lg-12 col-12  layout-spacing">
+                <div class="statbox widget box box-shadow">
+                    <div class="widget-header">
+
+                    </div>
+                    <div class="widget-content widget-content-area">
+
+                        <table class="table table-striped mb-0">
+                            <thead style="background-color: #002d72;">
+                                <tr>
+                                    <th scope="col">رقم الطلب</th>
+                                    <th scope="col">التاريخ</th>
+                                    <th scope="col">من</th>
+                                    <th scope="col">إلى</th>
+                                    <th scope="col">الملاحظة</th>
+                                    <th scope="col">مرفق</th>
+                                    <th scope="col">تعليم كمقروءة</th> 
+                                </tr>
+                            </thead>
+                            {% for a in notification %}
+                            <tbody>
+                                <tr>
+                                    <td>{{a.request_no}}</td>
+                                    <td>{{a.action_date}}</td>
+                                    <td>{{a.action_creator}}</td>
+                                    <td>{{a.to}}</td>
+
+                                    {% if user_contract_permission.add_new_contract == 'Yes' %}
+                                    <td><a href="{% url 'sector_manager_action' a.request_no %}">{{a.action_notes}}</td>
+                                    {% endif %}
+
+                                    {% if user_contract_permission.Sector_manager_action_2 == 'Yes' %}
+                                    <td><a href="{% url 'sector_manager_action' a.request_no %}">{{a.action_notes}}</td>
+                                    {% endif %}
+
+                                    {% if user_contract_permission.Check_data_action_3 == 'Yes' %}
+                                    <td><a href="{% url 'check_data_action' a.request_no %}">{{a.action_notes}}</td>
+                                    {% endif %}
+
+                                    {% if user_contract_permission.Cost_estimation_action_4 == 'Yes' %}
+                                    <td><a href="{% url 'cost_estimation_action' a.request_no %}">{{a.action_notes}}</td>
+                                    {% endif %}
+
+                                    {% if user_contract_permission.Financial_action_5 == 'Yes' %}
+                                    <td><a href="{% url 'financial_action' a.request_no %}">{{a.action_notes}}</td>
+                                    {% endif %}
+
+                                    {% if user_contract_permission.Copy_contract_action_6 == 'Yes' and a.sgnlcopyContract_action == None%}
+                                    <td><a href="{% url 'copy_contract_action' a.request_no %}">{{a.action_notes}}</td>
+                                    {% endif %}
+                                    
+                                    {% if user_contract_permission.Check_contract_action_7 == 'Yes' %}
+                                    <td><a href="{% url 'check_contract_action' a.request_no %}">{{a.action_notes}}</td>
+                                    {% endif %}
+                                    
+                                    {% if user_contract_permission.TCTA_action_8 == 'Yes' %}
+                                    <td><a href="{% url 'tcta_action' a.request_no %}">{{a.action_notes}}</td>
+                                    {% endif %}
+                                    
+                                    {% if user_contract_permission.EVP_action_9 == 'Yes' %}
+                                    <td><a href="{% url 'evp_action' a.request_no %}">{{a.action_notes}}</td>
+                                    {% endif %}
+                                    
+                                    {% if user_contract_permission.CEO_action_10 == 'Yes' and a.sgnlceo_action == None%}
+                                    <td><a href="{% url 'ceo_action' a.request_no %}">{{a.action_notes}}</td>
+                                    {% endif %}
+                                    
+                                    {% if user_contract_permission.AssignAttach2_action_11 == 'Yes' and a.sgnlcopyContract_action != None%}
+                                    <td><a href="{% url 'assignAttach2_action' a.request_no %}">{{a.action_notes}}</td>
+                                    {% endif %}
+                                    
+                                    {% if user_contract_permission.AssignAttach1_action_12 == 'Yes' and a.sgnlceo_action != None%}
+                                    <td><a href="{% url 'assignAttach1_action' a.request_no %}">{{a.action_notes}}</td>
+                                    {% endif %}
+
+                                    <td>
+                                        {% if a.action_file %}
+                                        <span>
+                                        <a href="{{a.action_file.url}}">مرفق</a>
+                                       </span>
+                                       {% endif %}
+                                    </td>
+
+                                    <td><span>
+                                        <a href="{% url 'contract_notification_read' a.id %}">تعليم كمقروءة</a>
+                                       </span></td>
+                                    
+                                       
+
+
+                            </tbody>
+                            {% endfor %}
+                            
+                            
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+</div>
+
+{% endblock content %}

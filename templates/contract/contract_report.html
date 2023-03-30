@@ -1,0 +1,188 @@
+{% extends 'base.html' %} {% load static%} {% block content %}
+<div class="layout-px-spacing">
+
+
+
+    <div class="card">
+        <div class="card-icon mb-4">
+            <br>
+            
+            
+            <form method="GET" style="flex-wrap: wrap; display: flex;">
+
+                            <div style="margin: 5px;">
+                                <p style="text-align: center;">رقم الطلب</p>
+                                <p style="text-align: center;">{{myFilter.form.id}}</p>
+                            </div>
+                            <div style="margin: 5px;">
+                                <p style="text-align: center;">الطرف الثاني</p>
+                                <p style="text-align: center;">{{myFilter.form.secondParty_name}}</p>
+                            </div>
+                            
+                            <div style="margin: 5px;">
+                                <p style="text-align: center;">القطاع</p>
+                                <p style="text-align: center;">{{myFilter.form.sector}}</p>
+                            </div>
+                            
+                            <div style="margin: 5px;">
+                                <p style="text-align: center;">المشروع</p>
+                                <p style="text-align: center;">{{myFilter.form.creator}}</p>
+                            </div>
+                            
+                            <div style="margin: 5px;">
+                                <p style="text-align: center;">نوع الأعمال</p>
+                                <p style="text-align: center;">{{myFilter.form.works_type}}</p>
+                            </div>
+                            
+                            <div style="margin: 5px;">
+                                <p style="text-align: center;">الحالة</p>
+                                <p style="text-align: center;">{{myFilter.form.sgnllast_status_action}}</p>
+                            </div>
+
+                            <div style="margin: 5px;">
+                                <p style="text-align: center;">رقم العقد</p>
+                                <p style="text-align: center;">{{myFilter.form.contract_no}}</p>
+                            </div>
+
+                            <div style="margin: 5px;">
+                                <p style="text-align: center;">سنة العقد</p>
+                                <p style="text-align: center;">{{myFilter.form.contract_year}}</p>
+                            </div>
+                            
+                            
+                            
+
+                <br>
+                <input type="submit" name="txt" class="mt-1 btn btn-add-new-contract" value="بحث" >
+            </form>
+
+        </div>
+    </div>
+    <div id="form_sizing" class="col-lg-12" style="width: 100%;">
+        <div class="seperator-header-add-new-contract" style="width: 100%; text-align: center;">
+            <br>
+            <h4 class="">طلبات العقود</h4>
+        </div>
+    </div>
+    <div class="card" style="margin-top: 1%;">
+        <div class="card-icon mb-4">
+            <br>
+            
+
+
+            <table class="table table-striped mb-0">
+                <thead style="background-color: #002d72;">
+                    <tr>
+
+                        
+                        <th scope="col" style="text-align: center;">رقم الطلب</th>
+
+                        <th scope="col" style="text-align: center;">تاريخ الطلب</th>
+
+                        <th scope="col" style="text-align: center;">المشروع</th>
+
+                        <th scope="col" style="text-align: center;">القطاع</th> 
+
+                        <th scope="col" style="text-align: center;">الطرف الثاني</th> 
+
+                        <th scope="col" style="text-align: center;">نوع الأعمال</th> 
+                        <th scope="col" style="text-align: center;">مدة الطلب</th> 
+
+                        <th scope="col" style="text-align: center;">الحالة</th> 
+                        
+                        <th scope="col" style="text-align: center;">رقم العقد</th> 
+                        
+
+
+                        
+
+                    </tr>
+                </thead>
+                {% for a in contract_report %}
+                <tbody>
+                    <tr>
+                        
+                        <td style="text-align: center;">{{a.id}}</td>
+                        <td style="text-align: center;">{{a.creation_date}}</td>
+                        <td style="text-align: center;">{{a.project}}</td>
+                        <td style="text-align: center;">{{a.sector}}</td>
+                        <td style="text-align: center;">{{a.secondParty_name}}</td>
+                        <td style="text-align: center;">{{a.works_type}}</td>
+                        {% if a.sgnllast_status_action == 'مكتمل'%}
+                        <td style="text-align: center;">{{a.Contract_duration}}</td>
+                        {% else %}
+                        <td style="text-align: center;">{{a.Request_duration}}</td>
+                        {% endif %}
+                        <td style="text-align: center;">
+
+                             
+
+                            {% if user_contract_permission.add_new_contract == 'Yes'%}
+                                <a href="{% url 'sector_manager_action' a.id %}">{{a.sgnllast_status_action}}</a>
+                            {% endif %}
+
+                            {% if user_contract_permission.Sector_manager_action_2 == 'Yes' %}
+                                <a href="{% url 'sector_manager_action' a.id %}">{{a.sgnllast_status_action}}</a>
+                            {% endif %}
+
+                            {% if user_contract_permission.Check_data_action_3 == 'Yes' %}
+                                <a href="{% url 'check_data_action' a.id %}">{{a.sgnllast_status_action}}</a>
+                            {% endif %}
+
+                            {% if user_contract_permission.Cost_estimation_action_4 == 'Yes' %}
+                                <a href="{% url 'cost_estimation_action' a.id %}">{{a.sgnllast_status_action}}</a>
+                            {% endif %}
+
+                            {% if user_contract_permission.Financial_action_5 == 'Yes' %}
+                                <a href="{% url 'financial_action' a.id %}">{{a.sgnllast_status_action}}</a>
+                            {% endif %}
+
+                            {% if user_contract_permission.Copy_contract_action_6 == 'Yes' and a.sgnllast_status_action != 'توقيعات'%}
+                                <a href="{% url 'copy_contract_action' a.id %}">{{a.sgnllast_status_action}}</a>
+                            {% endif %} 
+                            
+                            {% if user_contract_permission.Check_contract_action_7 == 'Yes' %}
+                                <a href="{% url 'check_contract_action' a.id %}">{{a.sgnllast_status_action}}</a>
+                            {% endif %}
+
+                            {% if user_contract_permission.TCTA_action_8 == 'Yes' %}
+                                <a href="{% url 'tcta_action' a.id %}">{{a.sgnllast_status_action}}</a>
+                            {% endif %}
+
+                            {% if user_contract_permission.EVP_action_9 == 'Yes' %}
+                                <a href="{% url 'evp_action' a.id %}">{{a.sgnllast_status_action}}</a>
+                            {% endif %}
+
+                            {% if user_contract_permission.CEO_action_10 == 'Yes'%}
+                                <a href="{% url 'ceo_action' a.id %}">{{a.sgnllast_status_action}}</a>
+                            {% endif %}
+
+                            {% if user_contract_permission.AssignAttach2_action_11 == 'Yes' and a.sgnllast_status_action == 'توقيعات'%}
+                                <a href="{% url 'assignmnt_action' a.id %}">{{a.sgnllast_status_action}}</a>
+                            {% endif %}
+                            
+
+
+
+                            
+                            
+                        </td>
+                        {% if a.Contract_code %}
+                        <td style="text-align: center;">{{a.Contract_code}}</td>
+                        {% endif %}
+                        
+
+                </tbody>
+                {% endfor %}
+                
+                
+                
+            </table>
+
+
+        </div>
+    </div>
+
+</div>
+
+{% endblock content %}

@@ -1,0 +1,1510 @@
+{% extends 'base.html' %} {% load static%} {% block content %}
+
+
+<div class="layout-px-spacing">
+
+    <div class="row layout-top-spacing">
+
+        <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-12 layout-spacing">
+            <div class="widget widget-card-three">
+                <div class="widget-content">
+                    <div class="account-box">
+                        <div class="info">
+                            <div class="inv-title">
+                                <h5 class="">اجمالي العقود</h5>
+                            </div>
+                            <div class="inv-balance-info">
+                                <p class="inv-balance">{{all}}</p>
+                                <span class="inv-stats balance-credited">+ 2453</span>
+                            </div>
+                        </div>
+                        <div class="acc-action">
+                            <div class="">
+                                <a href="{% url 'contract_notification' %}" class="btn-wallet">{{notification_count}} اشعارات</a>
+                            </div>
+                            {% if user_contract_permission.Sector_manager_action_2 == 'Yes' %}
+                                <a href="{% url 'contract_sector_index' %}" class="btn-add-balance">
+                                {% elif user_contract_permission.add_new_contract == 'Yes' %}
+                                <a href="{% url 'contract_project_index' %}" class="btn-add-balance">
+                                {% elif user_contract_permission.Cost_estimation_action_4 == 'Yes' %}
+                                <a href="{% url 'contract_cost_estimation_index' %}" class="btn-add-balance">
+                                {% else %}
+                                <a href="{% url 'contract_main_index' %}" class="btn-add-balance">
+                                {% endif %}
+                                تغيير العرض
+                                </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+            
+            
+        <div class="col-xl-4 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing">
+            <div class="widget widget-six">
+                <br>
+
+                <div class="w-chart">
+                    <div class="w-chart-section">
+                        <div class="w-detail">
+                            <p class="w-title">عقود جارية</p>
+                            <br>
+                            <p class="w-stats">{{inprogress_count}}</p>
+                        </div>
+                        <br>
+                        <br>
+                        <div class="w-chart-render-one">
+                            <div id="total-users"></div>
+                        </div>
+                    </div>
+
+                    <div class="w-chart-section">
+                        <div class="w-detail">
+                            <p class="w-title">عقود مرفوضة</p>
+                            <br>
+                            <p class="w-stats">{{refuse_count}}</p>
+                        </div>
+                        <br>
+                        <br>
+                        <div class="w-chart-render-one">
+                            <div id="paid-visits"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+        
+        <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-12 layout-spacing">
+            <div class="widget widget-card-four">
+                <div class="widget-content">
+                    <div class="w-header">
+                        <div class="w-info">
+                            <h6 class="value">عقود مكتملة</h6>
+                        </div>
+
+                    </div>
+
+                    <div class="w-content">
+
+                        <div class="w-info">
+                            <p class="value">
+                                {% if complete_count == 0 %}
+                                {{complete_count | cut:'0'}}
+                                {%else%}
+                                    {% if user_contract_permission.add_new_contract == 'Yes' %}
+                                        <a href="{% url 'contract_complete_report_special_project' %}">{{complete_count}}</a>
+                                    {% elif user_contract_permission.Sector_manager_action_2 == 'Yes' %}
+                                        <a href="{% url 'contract_complete_report_special_sector' %}">{{complete_count}}</a>
+                                    {% elif user_contract_permission.Cost_estimation_action_4 == 'Yes' %}
+                                        <a href="{% url 'contract_complete_report_special_cost_estimation' %}">{{complete_count}}</a>
+                                    {% else %}
+                                        <a href="{% url 'contract_complete_report' %}">{{complete_count}}</a>
+                                    {% endif %}
+                                {% endif %}  
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trending-up"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg></p>
+                        </div>
+                        
+                    </div>
+
+                    <div class="w-progress-stats">                                            
+                        <div class="progress">
+                            <div class="progress-bar bg-gradient-secondary" role="progressbar" style="width: {{complete_percentage}}%" aria-valuenow="57" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+
+                        <div class="">
+                            <div class="w-icon">
+                                <p>{{complete_percentage}}%</p>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>  
+
+    </div>
+
+
+    <div class="card">
+        <div class="card-icon mb-4">
+            <br>
+            
+            
+            <form method="GET" style="flex-wrap: wrap; display: flex;">
+
+              <div style="margin: 5px;">
+                  <p style="text-align: center;">رقم الطلب</p>
+                  <p style="text-align: center;">{{myFilter.form.id}}</p>
+              </div>
+              <div style="margin: 5px;">
+                  <p style="text-align: center;">الطرف الثاني</p>
+                  <p style="text-align: center;">{{myFilter.form.secondParty_name}}</p>
+              </div>
+              
+              <div style="margin: 5px;">
+                  <p style="text-align: center;">القطاع</p>
+                  <p style="text-align: center;">{{myFilter.form.sector}}</p>
+              </div>
+              
+              <div style="margin: 5px;">
+                  <p style="text-align: center;">المشروع</p>
+                  <p style="text-align: center;">{{myFilter.form.creator}}</p>
+              </div>
+              
+              <div style="margin: 5px;">
+                  <p style="text-align: center;">نوع الأعمال</p>
+                  <p style="text-align: center;">{{myFilter.form.works_type}}</p>
+              </div>
+              
+              <div style="margin: 5px;">
+                  <p style="text-align: center;">الحالة</p>
+                  <p style="text-align: center;">{{myFilter.form.sgnllast_status_action}}</p>
+              </div>
+
+              <div style="margin: 5px;">
+                  <p style="text-align: center;">رقم العقد</p>
+                  <p style="text-align: center;">{{myFilter.form.contract_no}}</p>
+              </div>
+
+              <div style="margin: 5px;">
+                  <p style="text-align: center;">سنة العقد</p>
+                  <p style="text-align: center;">{{myFilter.form.contract_year}}</p>
+              </div>
+              
+              
+              
+
+  <br>
+  <input type="submit" name="txt" class="mt-1 btn btn-add-new-contract" value="بحث" >
+</form>
+
+        </div>
+    </div>
+    <div id="form_sizing" class="col-lg-12" style="width: 100%;">
+        <div class="seperator-header-add-new-contract" style="width: 100%; text-align: center;">
+            <br>
+            <h4 class="">جميع العقود</h4>
+        </div>
+    </div>
+    <div class="card" style="margin-top: 1%;">
+        <div class="card-icon mb-4">
+            <br>
+            
+
+
+            <table class="table table-striped mb-0">
+                <thead style="background-color: #002d72;">
+                    <tr>
+
+                        
+                        <th scope="col" style="text-align: center;">رقم الطلب</th>
+
+                        <th scope="col" style="text-align: center;">تاريخ الطلب</th>
+
+                        <th scope="col" style="text-align: center;">المشروع</th>
+
+                        <th scope="col" style="text-align: center;">القطاع</th> 
+
+                        <th scope="col" style="text-align: center;">الطرف الثاني</th> 
+
+                        <th scope="col" style="text-align: center;">نوع الأعمال</th> 
+
+                        <th scope="col" style="text-align: center;">مدة الطلب</th> 
+
+                        <th scope="col" style="text-align: center;">الحالة</th> 
+                        <th scope="col" style="text-align: center;">رقم العقد</th> 
+
+
+                        
+
+                    </tr>
+                </thead>
+                {% for a in contract_report %}
+                <tbody>
+                    <tr>
+                        
+                        <td style="text-align: center;">{{a.id}}</td>
+                        <td style="text-align: center;">{{a.creation_date}}</td>
+                        <td style="text-align: center;">{{a.project}}</td>
+                        <td style="text-align: center;">{{a.sector}}</td>
+                        <td style="text-align: center;">{{a.secondParty_name}}</td>
+                        <td style="text-align: center;">{{a.works_type}}</td>
+                        {% if a.sgnllast_status_action == 'مكتمل'%}
+                        <td style="text-align: center;">{{a.Contract_duration}}</td>
+                        {% else %}
+                        <td style="text-align: center;">{{a.Request_duration}}</td>
+                        {% endif %}
+                        <td style="text-align: center;">
+
+                             
+
+                            {% if user_contract_permission.add_new_contract == 'Yes'%}
+                                <a href="{% url 'sector_manager_action' a.id %}">{{a.sgnllast_status_action}}</a>
+                            {% endif %}
+
+                            {% if user_contract_permission.Sector_manager_action_2 == 'Yes' %}
+                                <a href="{% url 'sector_manager_action' a.id %}">{{a.sgnllast_status_action}}</a>
+                            {% endif %}
+
+                            {% if user_contract_permission.Check_data_action_3 == 'Yes' %}
+                                <a href="{% url 'check_data_action' a.id %}">{{a.sgnllast_status_action}}</a>
+                            {% endif %}
+
+                            {% if user_contract_permission.Cost_estimation_action_4 == 'Yes' %}
+                                <a href="{% url 'cost_estimation_action' a.id %}">{{a.sgnllast_status_action}}</a>
+                            {% endif %}
+
+                            {% if user_contract_permission.Financial_action_5 == 'Yes' %}
+                                <a href="{% url 'financial_action' a.id %}">{{a.sgnllast_status_action}}</a>
+                            {% endif %}
+
+                            {% if user_contract_permission.Copy_contract_action_6 == 'Yes' and a.sgnllast_status_action != 'توقيعات'%}
+                                <a href="{% url 'copy_contract_action' a.id %}">{{a.sgnllast_status_action}}</a>
+                            {% endif %} 
+                            
+                            {% if user_contract_permission.Check_contract_action_7 == 'Yes' %}
+                                <a href="{% url 'check_contract_action' a.id %}">{{a.sgnllast_status_action}}</a>
+                            {% endif %}
+
+                            {% if user_contract_permission.TCTA_action_8 == 'Yes' %}
+                                <a href="{% url 'tcta_action' a.id %}">{{a.sgnllast_status_action}}</a>
+                            {% endif %}
+
+                            {% if user_contract_permission.EVP_action_9 == 'Yes' %}
+                                <a href="{% url 'evp_action' a.id %}">{{a.sgnllast_status_action}}</a>
+                            {% endif %}
+
+                            {% if user_contract_permission.CEO_action_10 == 'Yes'%}
+                                <a href="{% url 'ceo_action' a.id %}">{{a.sgnllast_status_action}}</a>
+                            {% endif %}
+
+                            {% if user_contract_permission.AssignAttach2_action_11 == 'Yes' and a.sgnllast_status_action == 'توقيعات'%}
+                                <a href="{% url 'assignmnt_action' a.id %}">{{a.sgnllast_status_action}}</a>
+                            {% endif %}
+                            
+
+
+
+                            
+                            
+                        </td>
+                        {% if a.Contract_code%}
+                        <td style="text-align: center;">{{a.Contract_code}}</td>
+                        {% endif %}
+
+                </tbody>
+                {% endfor %}
+                
+                
+                
+            </table>
+
+
+        </div>
+    </div>
+
+</div>
+
+
+<script>
+    window.addEventListener("load", function(){
+        try {
+      
+          getcorkThemeObject = localStorage.getItem("theme");
+          getParseObject = JSON.parse(getcorkThemeObject)
+          ParsedObject = getParseObject;
+      
+          if (ParsedObject.settings.layout.darkMode) {
+      
+            var Theme = 'dark';
+      
+            Apex.tooltip = {
+                theme: Theme
+            }
+            
+            /**
+              ==============================
+              |    @Options Charts Script   |
+              ==============================
+            */
+            
+            /*
+              ======================================
+                  Visitor Statistics | Options
+              ======================================
+            */
+            
+            
+            // Total Visits
+            
+            var spark1 = {
+            chart: {
+                id: 'unique-visits',
+                group: 'sparks2',
+                type: 'line',
+                height: 80,
+                sparkline: {
+                    enabled: true
+                },
+                dropShadow: {
+                    enabled: true,
+                    top: 1,
+                    left: 1,
+                    blur: 2,
+                    color: '#e2a03f',
+                    opacity: 0.7,
+                }
+            },
+            series: [{
+                data: [21, 9, 36, 12, 44, 25, 59, 41, 66, 25]
+            }],
+            stroke: {
+              curve: 'smooth',
+              width: 2,
+            },
+            markers: {
+                size: 0
+            },
+            grid: {
+              padding: {
+                top: 35,
+                bottom: 0,
+                left: 40
+              }
+            },
+            colors: ['#e2a03f'],
+            tooltip: {
+                x: {
+                    show: false
+                },
+                y: {
+                    title: {
+                        formatter: function formatter(val) {
+                            return '';
+                        }
+                    }
+                }
+            },
+            responsive: [{
+                breakpoint: 1351,
+                options: {
+                  chart: {
+                      height: 95,
+                  },
+                  grid: {
+                      padding: {
+                        top: 35,
+                        bottom: 0,
+                        left: 0
+                      }
+                  },
+                },
+            },
+            {
+                breakpoint: 1200,
+                options: {
+                  chart: {
+                      height: 80,
+                  },
+                  grid: {
+                      padding: {
+                        top: 35,
+                        bottom: 0,
+                        left: 40
+                      }
+                  },
+                },
+            },
+            {
+                breakpoint: 576,
+                options: {
+                  chart: {
+                      height: 95,
+                  },
+                  grid: {
+                      padding: {
+                        top: 45,
+                        bottom: 0,
+                        left: 0
+                      }
+                  },
+                },
+            }
+            
+            ]
+            }
+            
+            // Paid Visits
+            
+            var spark2 = {
+            chart: {
+              id: 'total-users',
+              group: 'sparks1',
+              type: 'line',
+              height: 80,
+              sparkline: {
+                enabled: true
+              },
+              dropShadow: {
+                enabled: true,
+                top: 3,
+                left: 1,
+                blur: 3,
+                color: '#009688',
+                opacity: 0.7,
+              }
+            },
+            series: [{
+              data: [22, 19, 30, 47, 32, 44, 34, 55, 41, 69]
+            }],
+            stroke: {
+              curve: 'smooth',
+              width: 2,
+            },
+            markers: {
+              size: 0
+            },
+            grid: {
+              padding: {
+                top: 35,
+                bottom: 0,
+                left: 40
+              }
+            },
+            colors: ['#009688'],
+            tooltip: {
+              x: {
+                show: false
+              },
+              y: {
+                title: {
+                  formatter: function formatter(val) {
+                    return '';
+                  }
+                }
+              }
+            },
+            responsive: [{
+                breakpoint: 1351,
+                options: {
+                  chart: {
+                      height: 95,
+                  },
+                  grid: {
+                      padding: {
+                        top: 35,
+                        bottom: 0,
+                        left: 0
+                      }
+                  },
+                },
+            },
+            {
+                breakpoint: 1200,
+                options: {
+                  chart: {
+                      height: 80,
+                  },
+                  grid: {
+                      padding: {
+                        top: 35,
+                        bottom: 0,
+                        left: 40
+                      }
+                  },
+                },
+            },
+            {
+                breakpoint: 576,
+                options: {
+                  chart: {
+                      height: 95,
+                  },
+                  grid: {
+                      padding: {
+                        top: 35,
+                        bottom: 0,
+                        left: 0
+                      }
+                  },
+                },
+            }
+            ]
+            }
+            
+            
+            /*
+              ===================================
+                  Unique Visitors | Options
+              ===================================
+            */
+            
+            var d_1options1 = {
+            chart: {
+                height: 350,
+                type: 'bar',
+                toolbar: {
+                  show: false,
+                }
+            },
+            colors: ['#622bd7', '#ffbb44'],
+            plotOptions: {
+                bar: {
+                    horizontal: false,
+                    columnWidth: '55%',
+                    endingShape: 'rounded',
+                    borderRadius: 10,
+            
+                },
+            },
+            dataLabels: {
+                enabled: false
+            },
+            legend: {
+                position: 'bottom',
+                horizontalAlign: 'center',
+                fontSize: '14px',
+                markers: {
+                    width: 10,
+                    height: 10,
+                    offsetX: -5,
+                    offsetY: 0
+                },
+                itemMargin: {
+                    horizontal: 10,
+                    vertical: 8
+                }
+            },
+            grid: {
+              borderColor: '#191e3a',
+            },
+            stroke: {
+                show: true,
+                width: 2,
+                colors: ['transparent']
+            },
+            series: [{
+                name: 'عقد',
+                data: [{{sector_manager_count}}, {{check_data_count}}, {{cost_estimation_count}}, {{financial_count}}, {{copy_contract_count}}, {{check_contract_count}}, {{tcta_count}}, {{evp_count}}, {{ceo_count}}, {{asgn2_count}}, {{complete_count}}]
+            }],
+            xaxis: {
+                categories: ['مدير القطاع', 'مراجعة البيانات', 'تقدير التكاليف', 'المراجعة المالية', 'نسخ العقد', 'مراجعة العقد', 'اعتماد الاجراءات', 'نائب الرئيس التنفيذي', 'الرئيس التنفيذي', 'توقيعات', 'مكتمل'],
+            },
+            fill: {
+              type: 'gradient',
+              gradient: {
+                shade: Theme,
+                type: 'vertical',
+                shadeIntensity: 0.3,
+                inverseColors: false,
+                opacityFrom: 1,
+                opacityTo: 0.8,
+                stops: [0, 100]
+              }
+            },
+            tooltip: {
+                marker : {
+                    show: false,
+                },
+                theme: Theme,
+                y: {
+                    formatter: function (val) {
+                        return val
+                    }
+                }
+            },
+            responsive: [
+                { 
+                    breakpoint: 767,
+                    options: {
+                        plotOptions: {
+                            bar: {
+                                borderRadius: 0,
+                                columnWidth: "50%"
+                            }
+                        }
+                    }
+                },
+            ]
+            }
+            
+            /*
+              ==============================
+                  Statistics | Options
+              ==============================
+            */
+            
+            // Followers
+            
+            var d_1options3 = {
+            chart: {
+              id: 'sparkline1',
+              type: 'area',
+              height: 160,
+              sparkline: {
+                enabled: true
+              },
+            },
+            stroke: {
+                curve: 'smooth',
+                width: 2,
+            },
+            series: [{
+              name: 'Sales',
+              data: [38, 60, 38, 52, 36, 40, 28 ]
+            }],
+            labels: ['1', '2', '3', '4', '5', '6', '7'],
+            yaxis: {
+              min: 0
+            },
+            colors: ['#4361ee'],
+            tooltip: {
+              x: {
+                show: false,
+              }
+            },
+            grid: {
+                show: false,
+                xaxis: {
+                    lines: {
+                        show: false
+                    }
+                },
+                padding: {
+                top: 5,
+                right: 0,
+                left: 0
+                }, 
+            },
+            fill: {
+              type:"gradient",
+              gradient: {
+                  type: "vertical",
+                  shadeIntensity: 1,
+                  inverseColors: !1,
+                  opacityFrom: .30,
+                  opacityTo: .05,
+                  stops: [100, 100]
+              }
+            }
+            }
+            
+            // Referral
+            
+            var d_1options4 = {
+            chart: {
+              id: 'sparkline1',
+              type: 'area',
+              height: 160,
+              sparkline: {
+                enabled: true
+              },
+            },
+            stroke: {
+                curve: 'smooth',
+                width: 2,
+            },
+            series: [{
+              name: 'Sales',
+              data: [ 60, 28, 52, 38, 40, 36, 38]
+            }],
+            labels: ['1', '2', '3', '4', '5', '6', '7'],
+            yaxis: {
+              min: 0
+            },
+            colors: ['#e7515a'],
+            tooltip: {
+              x: {
+                show: false,
+              }
+            },
+            grid: {
+                show: false,
+                xaxis: {
+                    lines: {
+                        show: false
+                    }
+                },
+                padding: {
+                top: 5,
+                right: 0,
+                left: 0
+                }, 
+            },
+            fill: {
+              type:"gradient",
+              gradient: {
+                  type: "vertical",
+                  shadeIntensity: 1,
+                  inverseColors: !1,
+                  opacityFrom: .30,
+                  opacityTo: .05,
+                  stops: [100, 100]
+              }
+            }
+            }
+            
+            // Engagement Rate
+            
+            var d_1options5 = {
+              chart: {
+                id: 'sparkline1',
+                type: 'area',
+                height: 160,
+                sparkline: {
+                  enabled: true
+                },
+              },
+              stroke: {
+                  curve: 'smooth',
+                  width: 2,
+              },
+              fill: {
+                opacity: 1,
+              },
+              series: [{
+                name: 'Sales',
+                data: [28, 50, 36, 60, 38, 52, 38 ]
+              }],
+              labels: ['1', '2', '3', '4', '5', '6', '7'],
+              yaxis: {
+                min: 0
+              },
+              colors: ['#00ab55'],
+              tooltip: {
+                x: {
+                  show: false,
+                }
+              },
+              grid: {
+                  show: false,
+                  xaxis: {
+                      lines: {
+                          show: false
+                      }
+                  },
+                  padding: {
+                  top: 5,
+                  right: 0,
+                  left: 0
+                  }, 
+              },
+              fill: {
+                type:"gradient",
+                gradient: {
+                    type: "vertical",
+                    shadeIntensity: 1,
+                    inverseColors: !1,
+                    opacityFrom: .30,
+                    opacityTo: .05,
+                    stops: [100, 100]
+                }
+              }
+            }
+            
+      
+          } else {
+            
+            var Theme = 'dark';
+            
+            Apex.tooltip = {
+                theme: Theme
+            }
+            
+            /**
+              ==============================
+              |    @Options Charts Script   |
+              ==============================
+            */
+            
+            /*
+              ======================================
+                  Visitor Statistics | Options
+              ======================================
+            */
+            
+            
+            // Total Visits
+            
+            var spark1 = {
+            chart: {
+                id: 'unique-visits',
+                group: 'sparks2',
+                type: 'line',
+                height: 80,
+                sparkline: {
+                    enabled: true
+                },
+                dropShadow: {
+                    enabled: true,
+                    top: 1,
+                    left: 1,
+                    blur: 2,
+                    color: '#e2a03f',
+                    opacity: 0.7,
+                }
+            },
+            series: [{
+                data: [21, 9, 36, 12, 44, 25, 59, 41, 66, 25]
+            }],
+            stroke: {
+              curve: 'smooth',
+              width: 2,
+            },
+            markers: {
+                size: 0
+            },
+            grid: {
+              padding: {
+                top: 35,
+                bottom: 0,
+                left: 40
+              }
+            },
+            colors: ['#e2a03f'],
+            tooltip: {
+                x: {
+                    show: false
+                },
+                y: {
+                    title: {
+                        formatter: function formatter(val) {
+                            return '';
+                        }
+                    }
+                }
+            },
+            responsive: [{
+                breakpoint: 1351,
+                options: {
+                  chart: {
+                      height: 95,
+                  },
+                  grid: {
+                      padding: {
+                        top: 35,
+                        bottom: 0,
+                        left: 0
+                      }
+                  },
+                },
+            },
+            {
+                breakpoint: 1200,
+                options: {
+                  chart: {
+                      height: 80,
+                  },
+                  grid: {
+                      padding: {
+                        top: 35,
+                        bottom: 0,
+                        left: 40
+                      }
+                  },
+                },
+            },
+            {
+                breakpoint: 576,
+                options: {
+                  chart: {
+                      height: 95,
+                  },
+                  grid: {
+                      padding: {
+                        top: 45,
+                        bottom: 0,
+                        left: 0
+                      }
+                  },
+                },
+            }
+            
+            ]
+            }
+            
+            // Paid Visits
+            
+            var spark2 = {
+            chart: {
+              id: 'total-users',
+              group: 'sparks1',
+              type: 'line',
+              height: 80,
+              sparkline: {
+                enabled: true
+              },
+              dropShadow: {
+                enabled: true,
+                top: 3,
+                left: 1,
+                blur: 3,
+                color: '#009688',
+                opacity: 0.7,
+              }
+            },
+            series: [{
+              data: [22, 19, 30, 47, 32, 44, 34, 55, 41, 69]
+            }],
+            stroke: {
+              curve: 'smooth',
+              width: 2,
+            },
+            markers: {
+              size: 0
+            },
+            grid: {
+              padding: {
+                top: 35,
+                bottom: 0,
+                left: 40
+              }
+            },
+            colors: ['#009688'],
+            tooltip: {
+              x: {
+                show: false
+              },
+              y: {
+                title: {
+                  formatter: function formatter(val) {
+                    return '';
+                  }
+                }
+              }
+            },
+            responsive: [{
+                breakpoint: 1351,
+                options: {
+                  chart: {
+                      height: 95,
+                  },
+                  grid: {
+                      padding: {
+                        top: 35,
+                        bottom: 0,
+                        left: 0
+                      }
+                  },
+                },
+            },
+            {
+                breakpoint: 1200,
+                options: {
+                  chart: {
+                      height: 80,
+                  },
+                  grid: {
+                      padding: {
+                        top: 35,
+                        bottom: 0,
+                        left: 40
+                      }
+                  },
+                },
+            },
+            {
+                breakpoint: 576,
+                options: {
+                  chart: {
+                      height: 95,
+                  },
+                  grid: {
+                      padding: {
+                        top: 35,
+                        bottom: 0,
+                        left: 0
+                      }
+                  },
+                },
+            }
+            ]
+            }
+            
+            
+            /*
+              ===================================
+                  Unique Visitors | Options
+              ===================================
+            */
+            
+            var d_1options1 = {
+            chart: {
+                height: 350,
+                type: 'bar',
+                toolbar: {
+                  show: false,
+                }
+            },
+            colors: ['#ffbb44'],
+            plotOptions: {
+                bar: {
+                    horizontal: false,
+                    columnWidth: '55%',
+                    endingShape: 'rounded',
+                    borderRadius: 10,
+            
+                },
+            },
+            dataLabels: {
+                enabled: false
+            },
+            legend: {
+                position: 'bottom',
+                horizontalAlign: 'center',
+                fontSize: '14px',
+                markers: {
+                    width: 10,
+                    height: 10,
+                    offsetX: -5,
+                    offsetY: 0
+                },
+                itemMargin: {
+                    horizontal: 10,
+                    vertical: 8
+                }
+            },
+            grid: {
+              borderColor: '#e0e6ed',
+            },
+            stroke: {
+                show: true,
+                width: 2,
+                colors: ['transparent']
+            },
+            series: [{
+                name: 'عقد',
+                data: [{{sector_manager_count}}, {{check_data_count}}, {{cost_estimation_count}}, {{financial_count}}, {{copy_contract_count}}, {{check_contract_count}}, {{tcta_count}}, {{evp_count}}, {{ceo_count}}, {{asgn2_count}}, {{complete_count}}]
+            }],
+            xaxis: {
+                categories: ['مدير القطاع', 'مراجعة البيانات', 'تقدير التكاليف', 'المراجعة المالية', 'نسخ العقد', 'مراجعة العقد', 'اعتماد الاجراءات', 'نائب الرئيس التنفيذي', 'الرئيس التنفيذي', 'توقيعات', 'مكتمل'],
+            },
+            fill: {
+              type: 'gradient',
+              gradient: {
+                shade: Theme,
+                type: 'vertical',
+                shadeIntensity: 0.3,
+                inverseColors: false,
+                opacityFrom: 1,
+                opacityTo: 0.8,
+                stops: [0, 100]
+              }
+            },
+            tooltip: {
+                marker : {
+                    show: false,
+                },
+                theme: Theme,
+                y: {
+                    formatter: function (val) {
+                        return val
+                    }
+                }
+            },
+            responsive: [
+                { 
+                    breakpoint: 767,
+                    options: {
+                        plotOptions: {
+                            bar: {
+                                borderRadius: 0,
+                                columnWidth: "50%"
+                            }
+                        }
+                    }
+                },
+            ]
+            }
+            
+            /*
+              ==============================
+                  Statistics | Options
+              ==============================
+            */
+            
+            // Followers
+            
+            var d_1options3 = {
+            chart: {
+              id: 'sparkline1',
+              type: 'area',
+              height: 160,
+              sparkline: {
+                enabled: true
+              },
+            },
+            stroke: {
+                curve: 'smooth',
+                width: 2,
+            },
+            series: [{
+              name: 'Sales',
+              data: [38, 60, 38, 52, 36, 40, 28 ]
+            }],
+            labels: ['1', '2', '3', '4', '5', '6', '7'],
+            yaxis: {
+              min: 0
+            },
+            colors: ['#4361ee'],
+            tooltip: {
+              x: {
+                show: false,
+              }
+            },
+            grid: {
+                show: false,
+                xaxis: {
+                    lines: {
+                        show: false
+                    }
+                },
+                padding: {
+                top: 5,
+                right: 0,
+                left: 0
+                }, 
+            },
+            fill: {
+              type:"gradient",
+              gradient: {
+                  type: "vertical",
+                  shadeIntensity: 1,
+                  inverseColors: !1,
+                  opacityFrom: .40,
+                  opacityTo: .05,
+                  stops: [100, 100]
+              }
+            }
+            }
+            
+            // Referral
+            
+            var d_1options4 = {
+            chart: {
+              id: 'sparkline1',
+              type: 'area',
+              height: 160,
+              sparkline: {
+                enabled: true
+              },
+            },
+            stroke: {
+                curve: 'smooth',
+                width: 2,
+            },
+            series: [{
+              name: 'Sales',
+              data: [ 60, 28, 52, 38, 40, 36, 38]
+            }],
+            labels: ['1', '2', '3', '4', '5', '6', '7'],
+            yaxis: {
+              min: 0
+            },
+            colors: ['#e7515a'],
+            tooltip: {
+              x: {
+                show: false,
+              }
+            },
+            grid: {
+                show: false,
+                xaxis: {
+                    lines: {
+                        show: false
+                    }
+                },
+                padding: {
+                top: 5,
+                right: 0,
+                left: 0
+                }, 
+            },
+            fill: {
+              type:"gradient",
+              gradient: {
+                  type: "vertical",
+                  shadeIntensity: 1,
+                  inverseColors: !1,
+                  opacityFrom: .40,
+                  opacityTo: .05,
+                  stops: [100, 100]
+              }
+            }
+            }
+            
+            // Engagement Rate
+            
+            var d_1options5 = {
+              chart: {
+                id: 'sparkline1',
+                type: 'area',
+                height: 160,
+                sparkline: {
+                  enabled: true
+                },
+              },
+              stroke: {
+                  curve: 'smooth',
+                  width: 2,
+              },
+              fill: {
+                opacity: 1,
+              },
+              series: [{
+                name: 'Sales',
+                data: [28, 50, 36, 60, 38, 52, 38 ]
+              }],
+              labels: ['1', '2', '3', '4', '5', '6', '7'],
+              yaxis: {
+                min: 0
+              },
+              colors: ['#00ab55'],
+              tooltip: {
+                x: {
+                  show: false,
+                }
+              },
+              grid: {
+                  show: false,
+                  xaxis: {
+                      lines: {
+                          show: false
+                      }
+                  },
+                  padding: {
+                  top: 5,
+                  right: 0,
+                  left: 0
+                  }, 
+              },
+              fill: {
+                type:"gradient",
+                gradient: {
+                    type: "vertical",
+                    shadeIntensity: 1,
+                    inverseColors: !1,
+                    opacityFrom: .40,
+                    opacityTo: .05,
+                    stops: [100, 100]
+                }
+              }
+            }
+      
+          }
+            
+            /**
+                ==============================
+                |    @Render Charts Script    |
+                ==============================
+            */
+      
+      
+            /*
+                ======================================
+                    Visitor Statistics | Script
+                ======================================
+            */
+      
+            // Total Visits
+            d_1C_1 = new ApexCharts(document.querySelector("#total-users"), spark1);
+            d_1C_1.render();
+      
+            // Paid Visits
+            d_1C_2 = new ApexCharts(document.querySelector("#paid-visits"), spark2);
+            d_1C_2.render();
+      
+            /*
+                ===================================
+                    Unique Visitors | Script
+                ===================================
+            */
+      
+            var d_1C_3 = new ApexCharts(
+                document.querySelector("#uniqueVisits"),
+                d_1options1
+            );
+            d_1C_3.render();
+      
+      
+            /*
+                ==============================
+                    Statistics | Script
+                ==============================
+            */
+      
+      
+            // Followers
+      
+            var d_1C_5 = new ApexCharts(document.querySelector("#hybrid_followers"), d_1options3);
+            d_1C_5.render()
+      
+            // Referral
+      
+            var d_1C_6 = new ApexCharts(document.querySelector("#hybrid_followers1"), d_1options4);
+            d_1C_6.render()
+      
+            // Engagement Rate
+      
+            var d_1C_7 = new ApexCharts(document.querySelector("#hybrid_followers3"), d_1options5);
+            d_1C_7.render()
+      
+      
+      
+          /*
+              =============================================
+                  Perfect Scrollbar | Notifications
+              =============================================
+          */
+          const ps = new PerfectScrollbar(document.querySelector('.mt-container'));
+      
+      
+      
+          /**
+           * =================================================================================================
+           * |     @Re_Render | Re render all the necessary JS when clicked to switch/toggle theme           |
+           * =================================================================================================
+           */
+      
+          document.querySelector('.theme-toggle').addEventListener('click', function() {
+      
+            getcorkThemeObject = localStorage.getItem("theme");
+            getParseObject = JSON.parse(getcorkThemeObject)
+            ParsedObject = getParseObject;
+      
+            // console.log(ParsedObject.settings.layout.darkMode)
+      
+            if (ParsedObject.settings.layout.darkMode) {
+      
+                 /*
+                    ==============================
+                    |    @Re-Render Charts Script    |
+                    ==============================
+                */
+            
+                /*
+                    ===================================
+                        Unique Visitors | Script
+                    ===================================
+                */
+            
+                d_1C_3.updateOptions({
+                grid: {
+                        borderColor: '#191e3a',
+                    },
+                })
+                
+                /*
+                    ==============================
+                        Statistics | Script
+                    ==============================
+                */
+            
+            
+                // Followers
+      
+                d_1C_5.updateOptions({
+                    fill: {
+                        type:"gradient",
+                        gradient: {
+                            opacityFrom: .30,
+                        }
+                    }
+                })
+            
+                // Referral
+      
+                d_1C_6.updateOptions({
+                    fill: {
+                        type:"gradient",
+                        gradient: {
+                            opacityFrom: .30,
+                        }
+                    }
+                })
+            
+                // Engagement Rate
+      
+                d_1C_7.updateOptions({
+                    fill: {
+                        type:"gradient",
+                        gradient: {
+                            opacityFrom: .30,
+                        }
+                    }
+                })
+                
+            } else {
+                
+                /*
+                    ==============================
+                    |    @Re-Render Charts Script    |
+                    ==============================
+                */
+            
+                /*
+                    ===================================
+                        Unique Visitors | Script
+                    ===================================
+                */
+            
+                d_1C_3.updateOptions({
+                grid: {
+                        borderColor: '#e0e6ed',
+                    },
+                })
+              
+                /*
+                    ==============================
+                        Statistics | Script
+                    ==============================
+                */
+            
+            
+                // Followers
+      
+                d_1C_5.updateOptions({
+                    fill: {
+                        type:"gradient",
+                        gradient: {
+                            opacityFrom: .40,
+                        }
+                    }
+                })
+            
+                // Referral
+      
+                d_1C_6.updateOptions({
+                    fill: {
+                        type:"gradient",
+                        gradient: {
+                            opacityFrom: .40,
+                        }
+                    }
+                })
+            
+                // Engagement Rate
+      
+                d_1C_7.updateOptions({
+                    fill: {
+                        type:"gradient",
+                        gradient: {
+                            opacityFrom: .40,
+                        }
+                    }
+                })
+      
+            }
+           
+        })
+      
+      
+        } catch(e) {
+          // statements
+          console.log(e);
+        }
+      
+      })
+</script>
+{% endblock content %}

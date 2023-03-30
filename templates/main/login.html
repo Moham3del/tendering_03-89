@@ -1,0 +1,37 @@
+{% load static%}
+<link href="{% static 'login.css' %}" rel="stylesheet" type="text/css" />
+<div class="wrapper">
+        <div class="logo">
+            <img src="/static/src/assets/img/rawaf.png" alt="">
+            <br>
+            <div class="text-center mt-4 name">
+            <h1 style="color:#bd9f22;">TCT</h1>
+                {% for msg in messages %}
+                <p>{{msg}}</p>
+                {% endfor %}
+            </div>
+        </div>
+
+        <form method="POST" action="" class="p-3 mt-3">
+            {% csrf_token %}
+            <div class="form-field d-flex align-items-center">
+                
+                <input type="text" name="username" placeholder="Username">
+            </div>
+            <div class="form-field d-flex align-items-center">
+                
+                <input type="password" name="password" placeholder="Password">
+            </div>
+            
+            <button class="btn mt-3"><h3>دخول</h3></button>
+            
+        </form>
+
+        <div class="text-center fs-6">
+
+
+
+
+        </div>
+
+    </div>

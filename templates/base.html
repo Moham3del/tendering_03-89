@@ -1,0 +1,435 @@
+{% load static%}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no">
+    <title> </title>
+    <link rel="icon" type="image/x-icon" href="{% static 'src/assets/img/rawaf.png' %}" />
+    <link href="{% static 'layouts/vertical-light-menu/css/light/loader.css' %}" rel="stylesheet" type="text/css" />
+    <link href="{% static 'layouts/vertical-light-menu/css/dark/loader.css' %}" rel="stylesheet" type="text/css" />
+    <link href="{% static 'layouts/tender_details.css' %}" rel="stylesheet" type="text/css" />
+    <script src="{% static 'layouts/vertical-light-menu/loader.js' %}"></script>
+    <!-- BEGIN GLOBAL MANDATORY STYLES -->
+    <link href="https://fonts.googleapis.com/css?family=Nunito:400,600,700" rel="stylesheet">
+    <link href="{% static 'src/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet" type="text/css" />
+    <link href="{% static 'layouts/vertical-light-menu/css/light/plugins.css' %}" rel="stylesheet" type="text/css" />
+    <link href="{% static 'layouts/vertical-light-menu/css/dark/plugins.css' %}" rel="stylesheet" type="text/css" />
+    <link href="{% static 'filter1/css/main.css' %}" rel="stylesheet" />
+    <!-- END GLOBAL MANDATORY STYLES -->
+
+    <!-- BEGIN PAGE LEVEL PLUGINS/CUSTOM STYLES -->
+    <link rel="stylesheet" href="{% static 'src/plugins/src/filepond/filepond.min.css' %}">
+    <link rel="stylesheet" href="{% static 'src/plugins/src/filepond/FilePondPluginImagePreview.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'src/plugins/src/tagify/tagify.css' %}">
+
+    <link rel="stylesheet" type="text/css" href="{% static 'src/assets/css/light/forms/switches.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'src/plugins/css/light/editors/quill/quill.snow.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'src/plugins/css/light/tagify/custom-tagify.css' %}">
+    <link href="{% static 'src/plugins/css/light/filepond/custom-filepond.css" rel="stylesheet" type="text/css' %}" />
+
+    <link rel="stylesheet" type="text/css" href="{% static 'src/assets/css/dark/forms/switches.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'src/plugins/css/dark/editors/quill/quill.snow.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'src/plugins/css/dark/tagify/custom-tagify.css' %}">
+    <link href="{% static 'src/plugins/css/dark/filepond/custom-filepond.css' %}" rel="stylesheet" type="text/css" />
+    <link href="{% static 'src/assets/css/tendersCard.min.css' %}" rel="stylesheet">
+
+    <link href="{% static 'src/plugins/src/apex/apexcharts.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'src/assets/css/light/dashboard/dash_1.css' %}" rel="stylesheet" type="text/css" />
+    <link href="{% static 'src/assets/css/dark/dashboard/dash_1.css' %}" rel="stylesheet" type="text/css" />
+
+
+    <link href="{% static 'src/assets/css/light/components/list-group.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'src/assets/css/light/dashboard/dash_2.css' %}" rel="stylesheet" type="text/css" />
+
+    <link href="{% static 'src/assets/css/dark/components/list-group.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'src/assets/css/dark/dashboard/dash_2.css' %}" rel="stylesheet" type="text/css" />
+    <!-- END PAGE LEVEL PLUGINS/CUSTOM STYLES -->
+
+    <!--  BEGIN CUSTOM STYLE FILE  -->
+    <link rel="stylesheet" href="{% static 'src/assets/css/light/apps/blog-create.css' %}">
+    <link rel="stylesheet" href="{% static 'src/assets/css/dark/apps/blog-create.css' %}">
+    <!--  END CUSTOM STYLE FILE  -->
+    <link rel="stylesheet" href="{% static 'stepbar/stepbar.css' %}">
+</head>
+
+<body class="layout-boxed">
+
+    <!-- BEGIN LOADER -->
+    <div id="load_screen">
+        <div class="loader">
+            <div class="loader-content">
+                <div class="spinner-grow align-self-center"></div>
+            </div>
+        </div>
+    </div>
+    <!--  END LOADER -->
+
+    <!--  BEGIN NAVBAR  -->
+    <div class="header-container container-xxl">
+        <header class="header navbar navbar-expand-sm expand-header">
+
+            <a href="javascript:void(0);" class="sidebarCollapse">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    class="feather feather-menu">
+                    <line x1="3" y1="12" x2="21" y2="12"></line>
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <line x1="3" y1="18" x2="21" y2="18"></line>
+                </svg>
+            </a>
+
+            <div class="search-animated toggle-search">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    class="feather feather-search">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                </svg>
+                <form class="form-inline search-full form-inline search" role="search">
+                    <div class="search-bar">
+                        <input type="text" class="form-control search-form-control  ml-lg-auto" placeholder="Search...">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            class="feather feather-x search-close">
+                            <line x1="18" y1="6" x2="6" y2="18"></line>
+                            <line x1="6" y1="6" x2="18" y2="18"></line>
+                        </svg>
+                    </div>
+                </form>
+                <span class="badge badge-secondary">Ctrl + /</span>
+            </div>
+
+            <ul class="navbar-item flex-row ms-lg-auto ms-0">
+
+                <li class="nav-item theme-toggle-item">
+                    <h5>{{request.user}}</h5>
+                </li>
+
+                <li class="nav-item theme-toggle-item">
+                    <a href="javascript:void(0);" class="nav-link theme-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            class="feather feather-moon dark-mode">
+                            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                        </svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            class="feather feather-sun light-mode">
+                            <circle cx="12" cy="12" r="5"></circle>
+                            <line x1="12" y1="1" x2="12" y2="3"></line>
+                            <line x1="12" y1="21" x2="12" y2="23"></line>
+                            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                            <line x1="1" y1="12" x2="3" y2="12"></line>
+                            <line x1="21" y1="12" x2="23" y2="12"></line>
+                            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                        </svg>
+                    </a>
+                </li>
+
+
+
+
+
+
+                <li class="nav-item dropdown user-profile-dropdown  order-lg-0 order-1">
+                    <a href="javascript:void(0);" class="nav-link dropdown-toggle user" id="userProfileDropdown"
+                        data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <div class="avatar-container">
+                            <div class="avatar avatar-sm avatar-indicators avatar-online">
+                                <img alt="avatar" src="{% static 'src/assets/img/profile-30.png' %}"
+                                    class="rounded-circle">
+                            </div>
+                        </div>
+                    </a>
+
+                    <div class="dropdown-menu position-absolute" aria-labelledby="userProfileDropdown">
+                        <div class="user-profile-section">
+                            <div class="media mx-auto">
+                                <div class="emoji me-2">
+                                    &#x1F44B;
+                                </div>
+                                <div class="media-body">
+                                    <h5>{{request.user}}</h5>
+                                    <p>{{request.user.email}}</p>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                        <div class="dropdown-item">
+                            <a href="{% url 'logout' %}">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" class="feather feather-log-out">
+                                    <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                                    <polyline points="16 17 21 12 16 7"></polyline>
+                                    <line x1="21" y1="12" x2="9" y2="12"></line>
+                                </svg> <span>تسجيل خروج</span>
+                            </a>
+                        </div>
+                    </div>
+
+                </li>
+            </ul>
+        </header>
+    </div>
+    <!--  END NAVBAR  -->
+    <!--  BEGIN MAIN CONTAINER  -->
+    <div class="main-container " id="container">
+
+        <div class="overlay"></div>
+        <div class="search-overlay"></div>
+
+        <!--  BEGIN SIDEBAR  -->
+        <div class="sidebar-wrapper sidebar-theme">
+
+            <nav id="sidebar">
+                
+                <div class="navbar-nav theme-brand flex-row  text-center">
+                    <div class="">
+                        <div class="">
+                            <a href="{% url 'home' %}">
+                                <img style="padding: 15px;" alt="LOGO" src="{% static 'src/assets/img/rawaf.png' %}" width="200">
+                            </a>
+                        </div>
+
+                    </div>
+                    <div class="nav-item sidebar-toggle">
+                        <div class="btn-toggle sidebarCollapse">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" class="feather feather-chevrons-left">
+                                <polyline points="11 17 6 12 11 7"></polyline>
+                                <polyline points="18 17 13 12 18 7"></polyline>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="shadow-bottom"></div>
+                
+                <ul class="list-unstyled menu-categories" id="accordionExample">
+
+
+                    <li class="menu menu-heading">
+                        <div class="heading"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round" class="feather feather-minus">
+                                <line x1="5" y1="12" x2="19" y2="12"></line>
+                            </svg><span></span></div>
+                    </li>
+
+
+
+                    {% if user_tender_permission.tender_app == 'Yes' %}
+                    <li class="menu">
+
+                        <a href="#invoice" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                            <div class="">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" class="feather feather-book-open">
+                                    <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
+                                    <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
+                                </svg>
+                                <span style="font-weight:bolder;font-size: large;">المناقصـــــات</span>
+                            </div>
+                            <div>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" class="feather feather-chevron-right">
+                                    <polyline points="9 18 15 12 9 6"></polyline>
+                                </svg>
+                            </div>
+                        </a>
+                        <ul class="collapse submenu list-unstyled" id="invoice" data-bs-parent="#accordionExample">
+                            <li>
+                                <a href="{% url 'tender_report' %}"> تقرير المناقصات </a>
+                            </li>
+                            <li>
+                                <a href="{% url 'tender_details' %}"> تفاصيل المناقصات </a>
+                            </li>
+                            {% if user_tender_permission.add_new_tender == 'Yes' %}
+                            <li>
+                                <a href="{% url 'add_new_tender' %}"> إضافة مناقصة جديدة</a>
+                            </li>
+                            {% endif %}
+
+                        </ul>
+                    </li>
+                    {% endif %}
+                    {% if user_contract_permission.contract_app == 'Yes' %}
+                    <li class="menu">
+                        <a href="#blog" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                            <div class="">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" class="feather feather-clipboard">
+                                    <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2">
+                                    </path>
+                                    <rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect>
+                                </svg>
+                                <span style="font-weight:bolder;font-size: large;">العقـــــــــــود</span>
+                            </div>
+                            <div>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" class="feather feather-chevron-right">
+                                    <polyline points="9 18 15 12 9 6"></polyline>
+                                </svg>
+                            </div>
+                        </a>
+                        <ul class="collapse submenu list-unstyled" id="blog" data-bs-parent="#accordionExample">
+                            {% if user_contract_permission.add_new_contract == 'Yes' %}
+                            <li>
+                                <a href="{% url 'contract_project_index' %}"> اللوحة الرئيسية </a>
+                            </li>
+
+                            {% elif user_contract_permission.Sector_manager_action_2 == 'Yes' %}
+                            <li>
+                                <a href="{% url 'contract_sector_index' %}"> اللوحة الرئيسية </a>
+                            </li>
+                            {% else %}
+                            <li>
+                                <a href="{% url 'contract_main_index' %}"> اللوحة الرئيسية </a>
+                            </li>
+                            {% endif %}
+
+                            {% if user_contract_permission.add_new_contract == 'Yes' %}
+                            <li>
+                                <a href="{% url 'add_new_contract' %}"> طلب عقد جديد </a>
+                            </li>
+                            {% endif %}
+                        </ul>
+                    </li>
+                    {% endif %}
+
+
+
+                    {% if user_project_permission.project_app == 'Yes' %}
+                    <li class="menu">
+                        <a href="#ecommerce" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                            <div class="">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" class="feather feather-codesandbox">
+                                    <path
+                                        d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z">
+                                    </path>
+                                    <polyline points="7.5 4.21 12 6.81 16.5 4.21"></polyline>
+                                    <polyline points="7.5 19.79 7.5 14.6 3 12"></polyline>
+                                    <polyline points="21 12 16.5 14.6 16.5 19.79"></polyline>
+                                    <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+                                    <line x1="12" y1="22.08" x2="12" y2="12"></line>
+                                </svg>
+                                <span style="font-weight:bolder;font-size: large;">الشئون الفنية</span>
+                            </div>
+                            <div>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" class="feather feather-chevron-right">
+                                    <polyline points="9 18 15 12 9 6"></polyline>
+                                </svg>
+                            </div>
+                        </a>
+                        <ul class="collapse submenu list-unstyled" id="ecommerce" data-bs-parent="#accordionExample">
+                            <li>
+                                <a href=""> تقرير الشئون الفنية </a>
+                            </li>
+                            <li>
+                                <a href="">تفاصيل الشئون الفنية </a>
+                            </li>
+                            <li>
+                                <a href="">إضافة مهمة </a>
+                            </li>
+                        </ul>
+                    </li>
+                    {% endif %}
+                    <li class="menu active">
+
+
+                    </li>
+
+
+
+
+                </ul>
+                
+
+
+
+
+            </nav>
+
+        </div>
+        <!--  END SIDEBAR  -->
+
+        <!--  BEGIN CONTENT AREA  -->
+        <div id="content" class="main-content">
+
+            {% block content %}
+
+
+
+            {% endblock content %}
+
+            <!--  BEGIN FOOTER  -->
+            <!-- <div class="footer-wrapper">
+                <div class="footer-section f-section-1">
+                    <p class="">Copyright © <span class="dynamic-year">2023</span> <a target="_blank"
+                            href="https://alrawaf.com.sa/en">AlRawaf Tendering</a>, All rights reserved.</p>
+                </div>
+                <div class="footer-section f-section-2">
+                    <p class=""><a href="https://alrawaf.com.sa/en"></a>AlRawaf.com </p>
+                </div>
+            </div> -->
+            <!--  END FOOTER  -->
+
+        </div>
+        <!--  END CONTENT AREA  -->
+    </div>
+    <!-- END MAIN CONTAINER -->
+
+    <!-- BEGIN GLOBAL MANDATORY STYLES -->
+    <script src="{% static 'src/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'src/plugins/src/perfect-scrollbar/perfect-scrollbar.min.js' %}"></script>
+    <script src="{% static '/src/plugins/src/mousetrap/mousetrap.min.js' %}"></script>
+    <script src="{% static 'src/plugins/src/waves/waves.min.js' %}"></script>
+    <script src="{% static 'layouts/vertical-light-menu/app.js' %}"></script>
+    <!-- END GLOBAL MANDATORY STYLES -->
+
+    <!-- BEGIN PAGE LEVEL SCRIPTS -->
+    <script src="{% static 'src/plugins/src/editors/quill/quill.js' %}"></script>
+    <script src="{% static 'src/plugins/src/filepond/filepond.min.js' %}"></script>
+    <script src="{% static 'src/plugins/src/filepond/FilePondPluginFileValidateType.min.js' %}"></script>
+    <script src="{% static 'src/plugins/src/filepond/FilePondPluginImageExifOrientation.min.js' %}"></script>
+    <script src="{% static 'src/plugins/src/filepond/FilePondPluginImagePreview.min.js' %}"></script>
+    <script src="{% static 'src/plugins/src/filepond/FilePondPluginImageCrop.min.js' %}"></script>
+    <script src="{% static 'src/plugins/src/filepond/FilePondPluginImageResize.min.js' %}"></script>
+    <script src="{% static 'src/plugins/src/filepond/FilePondPluginImageTransform.min.js' %}"></script>
+    <script src="{% static 'src/plugins/src/filepond/filepondPluginFileValidateSize.min.js' %}"></script>
+
+    <script src="{% static 'src/plugins/src/tagify/tagify.min.js' %}"></script>
+
+    <script src="{% static 'src/assets/js/apps/blog-create.js' %}"></script>
+
+
+
+    <!-- END PAGE LEVEL SCRIPTS -->
+
+    <!-- BEGIN PAGE LEVEL PLUGINS/CUSTOM SCRIPTS -->
+    <script src="{% static 'src/plugins/src/apex/apexcharts.min.js' %}"></script>
+    <script src="{% static 'src/assets/js/dashboard/dash_1.js' %}"></script>
+
+    <script src="{% static 'src/assets/js/dashboard/dash_2.js' %}"></script>
+
+    <!-- BEGIN PAGE LEVEL PLUGINS/CUSTOM SCRIPTS -->
+</body>
+
+</html>
